@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 A thingspeak.com Python API
 Installation script
@@ -5,6 +6,7 @@ Installation script
 from setuptools import setup, find_packages
 from codecs import open
 from os import path
+from thingspeak import __version__
 
 here = path.abspath(path.dirname(__file__))
 
@@ -14,8 +16,8 @@ with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
 
 setup(
     name='thingspeak',
-    version='0.1.0',
     description='A thingspeak.com Python API',
+    version=__version__,
     long_description=long_description,
     url='https://github.com/mchwalisz/thingspeak',
 
@@ -30,12 +32,13 @@ setup(
         #   5 - Production/Stable
         'Development Status :: 3 - Alpha',
         'Intended Audience :: Developers',
-        'License :: OSI Approved :: GNU Lesser General Public License v3 (LGPLv3)',
+        'License :: OSI Approved :: ' +
+        'GNU Lesser General Public License v3 (LGPLv3)',
         'Programming Language :: Python :: 2',
     ],
     keywords='thingspeak development api',
     packages=find_packages(exclude=['contrib', 'docs', 'tests']),
-    install_requires=['requests', 'docopt'],
+    install_requires=['requests', 'logging', 'docopt'],
 
     extras_require={
         'dev': ['check-manifest'],
