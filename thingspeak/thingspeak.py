@@ -36,12 +36,13 @@ thingspeak_url = 'https://api.thingspeak.com/'
 
 class Channel(object):
     """ThingSpeak channel object"""
-    def __init__(self, id, api_key=None, write_key=None):
+    def __init__(self, id, api_key=None, write_key=None, fmt='json'):
         self.id = id
         self.api_key = api_key
         self.write_key = write_key
+        self.fmt = ('.' + fmt) if fmt in ['json', 'xml'] else ''
 
-    def get(self, options=dict(), fmt='json'):
+    def get(self, options=dict()):
         """Get a channel feed.
 
         Full reference:
@@ -49,14 +50,17 @@ class Channel(object):
         """
         if self.api_key is not None:
             options['api_key'] = self.api_key
-        url = '{ts}/channels/{id}/feeds{f}'.format(
+        url = '{ts}/channels/{id}/feeds{fmt}'.format(
             ts=thingspeak_url,
             id=self.id,
-            f=('.' + fmt) if fmt in ['json', 'xml'] else '',
+            fmt=self.fmt,
         )
         r = requests.get(url, params=options)
+        return self._fmt(r)
+
+    def _fmt(self, r):
         r.raise_for_status()
-        if fmt == 'json':
+        if self.fmt == 'json':
             return r.json()
         else:
             return r.text
