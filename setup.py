@@ -16,8 +16,8 @@ with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
 
 setup(
     name='thingspeak',
-    description='A thingspeak.com Python API',
     version=__version__,
+    description='Client library for the thingspeak.com API',
     long_description=long_description,
     url='https://github.com/mchwalisz/thingspeak',
 
