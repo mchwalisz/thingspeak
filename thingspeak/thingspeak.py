@@ -58,6 +58,13 @@ class Channel(object):
         r = requests.get(url, params=options)
         return self._fmt(r)
 
+    def get_field(self, field=None, options=dict()):
+        """Get particular field
+
+        Full reference:
+        https://de.mathworks.com/help/thingspeak/get-channel-field-feed.html
+        """
+        pass
     def _fmt(self, r):
         r.raise_for_status()
         if self.fmt == 'json':
