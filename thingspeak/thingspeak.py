@@ -136,7 +136,7 @@ def main():
     opts = dict()
     # Act on channel
     if args['<field>']:
-        data = {k:v for k,v in zip(args['<field>'],args['<value>'])}
+        data = {k: v for k, v in zip(args['<field>'], args['<value>'])}
         print(ch.update(data))
     if args['--results'] is not None:
         opts['results'] = args['--results']
