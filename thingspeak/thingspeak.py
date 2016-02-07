@@ -12,6 +12,7 @@ Options:
    --api-key=<key>        Read API key for this specific channel
                           (optional--no key required for public channels)
    -r=<r>, --results <r>  Number of results to output
+   -f <format>            Output data format [default: json]
 
 Other options:
    --config            prints empty config file
@@ -40,7 +41,7 @@ class Channel(object):
         self.api_key = api_key
         self.write_key = write_key
 
-    def get(self, fmt='json', options=dict()):
+    def get(self, options=dict(), fmt='json'):
         """Get a channel feed.
 
         Full reference:
@@ -48,19 +49,17 @@ class Channel(object):
         """
         if self.api_key is not None:
             options['api_key'] = self.api_key
-        url = '{ts}/channels/{id}/feeds.{f}'.format(
+        url = '{ts}/channels/{id}/feeds{f}'.format(
             ts=thingspeak_url,
             id=self.id,
-            f=fmt,
+            f=('.' + fmt) if fmt in ['json', 'xml'] else '',
         )
         r = requests.get(url, params=options)
         r.raise_for_status()
         if fmt == 'json':
             return r.json()
-        elif fmt == 'xml':
-            return r.xml()
         else:
-            return r.text()
+            return r.text
 
 
 def main():
@@ -82,7 +81,7 @@ def main():
     opts = dict()
     if args['--results'] is not None:
         opts['results'] = args['--results']
-    print(ch.get_json(opts))
+    print(ch.get(opts, fmt=args['-f']))
 # def main
 
 
