@@ -2,14 +2,16 @@
 # -*- coding: utf-8 -*-
 
 """
-thingspeak: Does really cool stuff
+thingspeak: Channel showcase
 
 Usage:
-   thingspeak [options] [-q | -v]
+   thingspeak [options] [-q | -v] <channel>
    thingspeak --config
 
 Options:
-   -f                  foo
+   --api-key=<key>        Read API key for this specific channel
+                          (optional--no key required for public channels)
+   -r=<r>, --results <r>  Number of results to output
 
 Other options:
    --config            prints empty config file
@@ -60,10 +62,27 @@ class Channel(object):
         else:
             return r.text()
 
-def main(args):
+
+def main():
     """Run the code for thingspeak"""
+    args = docopt(__doc__, version=__version__)
+    args = parse_json_config(args)
+    log_level = logging.INFO  # default
+    if args['--verbose']:
+        log_level = logging.DEBUG
+    elif args['--quiet']:
+        log_level = logging.ERROR
+    logging.basicConfig(
+        level=log_level,
+        format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+    )
     log = logging.getLogger('thingspeak.main')
     log.debug(args)
+    ch = Channel(args['<channel>'], api_key=args['--api-key'])
+    opts = dict()
+    if args['--results'] is not None:
+        opts['results'] = args['--results']
+    print(ch.get_json(opts))
 # def main
 
 
@@ -85,10 +104,13 @@ def parse_json_config(args):
         del args['--version']
         print(json.dumps(args, sort_keys=True, indent=4))
         exit()
+
     def merge_configs(args, filename):
         json_config = json.loads(open(filename).read())
-        return dict((str(key), args.get(key) or json_config.get(key))
-            for key in set(json_config) | set(args))
+        return dict(
+            (str(key), args.get(key) or json_config.get(key))
+            for key in set(json_config) | set(args)
+        )
     if args['-c']:
         return merge_configs(args, args['-c'])
     elif args['-C']:
@@ -98,15 +120,4 @@ def parse_json_config(args):
 # def parse_json_config
 
 if __name__ == "__main__":
-    args = docopt(__doc__, version=__version__)
-    args = parse_json_config(args)
-
-    log_level = logging.INFO  # default
-    if args['--verbose']:
-        log_level = logging.DEBUG
-    elif args['--quiet']:
-        log_level = logging.ERROR
-    logging.basicConfig(level=log_level,
-        format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-
-    main(args)
+    main()
