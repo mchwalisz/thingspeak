@@ -21,10 +21,44 @@ Other options:
    --version           show version and exit
 """
 
-__author__ = "Mikołaj Chwalisz"
-
 from docopt import docopt
 import logging
+import requests
+
+__author__ = "Mikołaj Chwalisz"
+__version__ = "0.2.0"
+
+thingspeak_url = 'https://api.thingspeak.com/'
+
+
+class Channel(object):
+    """ThingSpeak channel object"""
+    def __init__(self, id, api_key=None, write_key=None):
+        self.id = id
+        self.api_key = api_key
+        self.write_key = write_key
+
+    def get(self, fmt='json', options=dict()):
+        """Get a channel feed.
+
+        Full reference:
+        https://de.mathworks.com/help/thingspeak/get-a-channel-feed.html
+        """
+        if self.api_key is not None:
+            options['api_key'] = self.api_key
+        url = '{ts}/channels/{id}/feeds.{f}'.format(
+            ts=thingspeak_url,
+            id=self.id,
+            f=fmt,
+        )
+        r = requests.get(url, params=options)
+        r.raise_for_status()
+        if fmt == 'json':
+            return r.json()
+        elif fmt == 'xml':
+            return r.xml()
+        else:
+            return r.text()
 
 def main(args):
     """Run the code for thingspeak"""
