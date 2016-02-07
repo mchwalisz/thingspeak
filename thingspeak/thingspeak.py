@@ -6,11 +6,18 @@ thingspeak: Channel showcase
 
 Usage:
    thingspeak [options] [-q | -v] <channel>
+   thingspeak [options] [-q | -v] <channel> (<field> <value>)...
    thingspeak --config
 
+Arguments:
+   <channel>              ThingSpeak Channel ID
+   <field>                Field to write to
+   <value>                Value to write
+
 Options:
-   --api-key=<key>        Read API key for this specific channel
-                          (optional--no key required for public channels)
+   --api-key=<key>        Read API key for selected channel
+                          (no key required for public channels)
+   --write-key=<wkey>     Write API key for selected channel
    -r=<r>, --results <r>  Number of results to output
    -f <format>            Output data format [default: json]
 
@@ -79,6 +86,23 @@ class Channel(object):
         r = requests.get(url, params=options)
         return self._fmt(r)
     # def view
+
+    def update(self, data):
+        """Update channel feed.
+
+        Full reference:
+        https://de.mathworks.com/help/thingspeak/update-channel-feed.html
+        """
+        if self.write_key is not None:
+            data['api_key'] = self.write_key
+        url = '{ts}/update{fmt}'.format(
+            ts=thingspeak_url,
+            id=self.id,
+            fmt=self.fmt,
+        )
+        r = requests.post(url, params=data)
+        return self._fmt(r)
+
     def _fmt(self, r):
         r.raise_for_status()
         if self.fmt == 'json':
@@ -102,8 +126,18 @@ def main():
     )
     log = logging.getLogger('thingspeak.main')
     log.debug(args)
-    ch = Channel(args['<channel>'], api_key=args['--api-key'])
+    # Create channel class
+    ch = Channel(
+        args['<channel>'],
+        api_key=args['--api-key'],
+        write_key=args['--write-key'],
+        fmt=args['-f'],
+    )
     opts = dict()
+    # Act on channel
+    if args['<field>']:
+        data = {k:v for k,v in zip(args['<field>'],args['<value>'])}
+        print(ch.update(data))
     if args['--results'] is not None:
         opts['results'] = args['--results']
         print(ch.get(opts))
