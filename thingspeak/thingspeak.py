@@ -65,6 +65,20 @@ class Channel(object):
         https://de.mathworks.com/help/thingspeak/get-channel-field-feed.html
         """
         pass
+
+    def view(self):
+        """View a Channel"""
+        options = dict()
+        if self.api_key is not None:
+            options['api_key'] = self.api_key
+        url = '{ts}/channels/{id}{fmt}'.format(
+            ts=thingspeak_url,
+            id=self.id,
+            fmt=self.fmt,
+        )
+        r = requests.get(url, params=options)
+        return self._fmt(r)
+    # def view
     def _fmt(self, r):
         r.raise_for_status()
         if self.fmt == 'json':
@@ -92,7 +106,9 @@ def main():
     opts = dict()
     if args['--results'] is not None:
         opts['results'] = args['--results']
-    print(ch.get(opts, fmt=args['-f']))
+        print(ch.get(opts))
+    else:
+        print(ch.view())
 # def main
 
 
