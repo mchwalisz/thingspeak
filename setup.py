@@ -38,7 +38,7 @@ setup(
     ],
     keywords='thingspeak development api',
     packages=find_packages(exclude=['contrib', 'docs', 'tests']),
-    install_requires=['requests', 'logging', 'docopt'],
+    install_requires=['requests', 'docopt'],
 
     extras_require={
         'dev': ['check-manifest'],
