@@ -41,6 +41,7 @@ setup(
         #   5 - Production/Stable
         'Development Status :: 3 - Alpha',
         'Intended Audience :: Developers',
+        'Intended Audience :: Information Technology',
         'License :: OSI Approved :: ' +
         'GNU Lesser General Public License v3 (LGPLv3)',
         'Programming Language :: Python :: 2',
@@ -50,7 +51,7 @@ setup(
     install_requires=['requests', 'docopt'],
 
     extras_require={
-        'dev': ['check-manifest'],
+        'dev': ['check-manifest', 'tox'],
         'test': ['coverage'],
     },
     entry_points={
