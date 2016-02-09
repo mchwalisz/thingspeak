@@ -1,21 +1,23 @@
 # -*- coding: utf-8 -*-
 """
-A thingspeak.com Python API
+Client library for the thingspeak.com API
+
 Installation script
 """
 from setuptools import setup, find_packages
 from codecs import open
 from os import path
-
-def find_version(*file_paths):
-    version_file = read(*file_paths)
-    version_match = re.search(r"^__version__ = ['\"]([^'\"]*)['\"]",
-                              version_file, re.M)
-    if version_match:
-        return version_match.group(1)
-    raise RuntimeError("Unable to find version string.")
+import re
 
 here = path.abspath(path.dirname(__file__))
+
+with open(path.join(here, 'thingspeak', '__init__.py'), 'r') as fd:
+    version = re.search(r'^__version__\s*=\s*[\'"]([^\'"]*)[\'"]',
+                        fd.read(), re.MULTILINE).group(1)
+
+if not version:
+    raise RuntimeError('Cannot find version information')
+
 
 # Get the long description from the README file
 with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
@@ -23,8 +25,7 @@ with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
 
 setup(
     name='thingspeak',
-    use_scm_version={'write_to': 'thingspeak/__version__.py'},
-    setup_requires=['setuptools_scm'],
+    version=version,
     description='Client library for the thingspeak.com API',
     long_description=long_description,
     url='https://github.com/mchwalisz/thingspeak',
@@ -54,7 +55,7 @@ setup(
     },
     entry_points={
         'console_scripts': [
-            'thingspeak=thingspeak:main',
+            'thingspeak=thingspeak.cmdline:main',
         ],
     },
 )
