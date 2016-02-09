@@ -1,5 +1,7 @@
+# -*- coding: utf-8 -*-
 
 from .thingspeak import *
-from .__version__ import version as __version__
 
+__author__ = "Mikołaj Chwalisz"
+__version__ = '0.3.5'
 
