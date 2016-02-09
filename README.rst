@@ -5,6 +5,15 @@ ThingSpeak is an open source “Internet of Things” application and API to sto
 
 This repository is contains Python module that helps in talking to ThingSpeak API.
 
+.. warning::
+
+   This is a complete redesign of the library as compared to v0.1.1.
+   Previous version is available in https://github.com/bergey/thingspeak
+   and is no longer maintained.
+
+   To install old version you can still use::
+
+      pip install thingspeak==0.1.1
 
 
 Example usage
