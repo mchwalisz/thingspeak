@@ -1,5 +1,5 @@
 
-from .thingspeak import Channel
+from .thingspeak import *
+from .__version__ import version as __version__
 
-__all__ = ["Channel"]
-__version__ = '0.3.1'
+

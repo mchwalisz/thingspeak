@@ -36,7 +36,7 @@ import logging
 import requests
 
 __author__ = "Mikołaj Chwalisz"
-__version__ = "0.2.0"
+from __version__ import version
 
 thingspeak_url = 'https://api.thingspeak.com/'
 
@@ -113,7 +113,7 @@ class Channel(object):
 
 def main():
     """Run the code for thingspeak"""
-    args = docopt(__doc__, version=__version__)
+    args = docopt(__doc__, version=version)
     args = parse_json_config(args)
     log_level = logging.INFO  # default
     if args['--verbose']:
