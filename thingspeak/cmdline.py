@@ -35,6 +35,7 @@ Other options:
 import __init__ as ts
 from docopt import docopt
 import logging
+import json
 
 
 def main():
@@ -66,7 +67,11 @@ def main():
         print(ch.update(data))
     if args['--results'] is not None:
         opts['results'] = args['--results']
-        print(ch.get(opts))
+        results = ch.get(opts)
+        if args['-f'] == 'json':
+            print(json.dumps(json.loads(results), sort_keys=True, indent=2))
+        else:
+            print(results)
     else:
         print(ch.view())
 # def main
@@ -79,7 +84,6 @@ def parse_json_config(args):
     It either prints the empty json config structure or adds the
     parameters from the given one to the existing arguments (args)
     """
-    import json
     if args['--config']:
         del args['-c']
         del args['-C']
