@@ -36,7 +36,10 @@ import logging
 import requests
 
 __author__ = "Mikołaj Chwalisz"
-from __version__ import version
+try:
+    from __version__ import version
+except ImportError:
+    version = '0.0.0.dev'
 
 thingspeak_url = 'https://api.thingspeak.com/'
 
