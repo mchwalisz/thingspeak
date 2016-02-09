@@ -59,4 +59,5 @@ setup(
             'thingspeak=thingspeak.cmdline:main',
         ],
     },
+    include_package_data=True,
 )
