@@ -6,7 +6,6 @@ Installation script
 from setuptools import setup, find_packages
 from codecs import open
 from os import path
-from thingspeak import __version__
 
 here = path.abspath(path.dirname(__file__))
 
@@ -16,7 +15,7 @@ with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
 
 setup(
     name='thingspeak',
-    version=__version__,
+    version='0.3.2',
     description='Client library for the thingspeak.com API',
     long_description=long_description,
     url='https://github.com/mchwalisz/thingspeak',
