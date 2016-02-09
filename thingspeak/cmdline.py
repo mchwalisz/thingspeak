@@ -36,6 +36,7 @@ import __init__ as ts
 from docopt import docopt
 import logging
 
+
 def main():
     """Run the code for thingspeak"""
     args = docopt(__doc__, version=ts.__version__)
@@ -103,6 +104,7 @@ def parse_json_config(args):
     else:
         return args
 # def parse_json_config
+
 
 if __name__ == "__main__":
     main()
