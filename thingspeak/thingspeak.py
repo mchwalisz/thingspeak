@@ -12,6 +12,7 @@ class Channel(object):
         self.api_key = api_key
         self.write_key = write_key
         self.fmt = ('.' + fmt) if fmt in ['json', 'xml'] else ''
+            
 
     def get(self, options=dict()):
         """Get a channel feed.
@@ -35,7 +36,35 @@ class Channel(object):
         Full reference:
         https://de.mathworks.com/help/thingspeak/get-channel-field-feed.html
         """
-        pass
+        if self.api_key is not None:
+            options['api_key'] = self.api_key
+        url = '{ts}/channels/{id}/fields/{field}{fmt}'.format(
+            ts=thingspeak_url,
+            id=self.id,
+            field=field,
+            fmt=self.fmt,
+        )
+        r = requests.get(url, params=options)
+        return self._fmt(r)
+        
+    def get_field_last_text(self, field=None, options=dict()):
+        """Get particular field
+
+        Full reference:
+        https://de.mathworks.com/help/thingspeak/get-channel-field-feed.html
+        """
+        self.field=field
+        if self.api_key is not None:
+            options['api_key'] = self.api_key
+        url = '{ts}/channels/{id}/fields/{field}/last{fmt}'.format(
+            ts=thingspeak_url,
+            id=self.id,
+            field=self.field,
+            fmt='.txt'
+        )
+        r = requests.get(url, params=options)
+        return self._fmt(r)        
+        
 
     def view(self):
         """View a Channel"""
