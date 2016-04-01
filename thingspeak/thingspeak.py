@@ -13,7 +13,6 @@ class Channel(object):
         self.write_key = write_key
         self.fmt = ('.' + fmt) if fmt in ['json', 'xml'] else ''
             
-
     def get(self, options=dict()):
         """Get a channel feed.
 
@@ -48,7 +47,7 @@ class Channel(object):
         return self._fmt(r)
         
     def get_field_last_text(self, field=None, options=dict()):
-        """Get particular field
+        """Get last result from particular field in text format
 
         Full reference:
         https://de.mathworks.com/help/thingspeak/get-channel-field-feed.html
