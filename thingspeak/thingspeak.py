@@ -12,7 +12,7 @@ class Channel(object):
         self.api_key = api_key
         self.write_key = write_key
         self.fmt = ('.' + fmt) if fmt in ['json', 'xml'] else ''
-            
+
     def get(self, options=dict()):
         """Get a channel feed.
 
@@ -45,12 +45,12 @@ class Channel(object):
         )
         r = requests.get(url, params=options)
         return self._fmt(r)
-        
-    def get_field_last_text(self, field=None, options=dict()):
-        """Get last result from particular field in text format
+
+    def get_field_last(self, field=None, options=dict()):
+        """Get last result from particular field
 
         Full reference:
-        https://de.mathworks.com/help/thingspeak/get-channel-field-feed.html
+        https://uk.mathworks.com/help/thingspeak/get-channel-field-feed.html#field_last_data
         """
         self.field=field
         if self.api_key is not None:
@@ -59,11 +59,28 @@ class Channel(object):
             ts=thingspeak_url,
             id=self.id,
             field=self.field,
-            fmt='.txt'
+            fmt=self.fmt,
         )
         r = requests.get(url, params=options)
-        return self._fmt(r)        
-        
+        return self._fmt(r)
+
+    def get_last_data_age(self, field=None, options=dict()):
+        """Get last result from particular field in text format
+
+        Full reference:
+        https://uk.mathworks.com/help/thingspeak/get-channel-field-feed.html#field_last_data_age
+        """
+        self.field=field
+        if self.api_key is not None:
+            options['api_key'] = self.api_key
+        url = '{ts}/channels/{id}/fields/{field}/last_data_age{fmt}'.format(
+            ts=thingspeak_url,
+            id=self.id,
+            field=self.field,
+            fmt=self.fmt,
+        )
+        r = requests.get(url, params=options)
+        return self._fmt(r)
 
     def view(self):
         """View a Channel"""
