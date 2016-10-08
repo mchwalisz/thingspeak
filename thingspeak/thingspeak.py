@@ -13,7 +13,7 @@ class Channel(object):
         self.write_key = write_key
         self.fmt = ('.' + fmt) if fmt in ['json', 'xml'] else ''
 
-    def get(self, options=dict()):
+    def get(self, options=dict(), timeout=None):
         """Get a channel feed.
 
         Full reference:
@@ -26,10 +26,10 @@ class Channel(object):
             id=self.id,
             fmt=self.fmt,
         )
-        r = requests.get(url, params=options)
+        r = requests.get(url, params=options, timeout=timeout)
         return self._fmt(r)
 
-    def get_field(self, field=None, options=dict()):
+    def get_field(self, field=None, options=dict(), timeout=None):
         """Get particular field
 
         Full reference:
@@ -37,7 +37,7 @@ class Channel(object):
         """
         pass
 
-    def view(self):
+    def view(self, timeout=None):
         """View a Channel"""
         options = dict()
         if self.api_key is not None:
@@ -47,11 +47,10 @@ class Channel(object):
             id=self.id,
             fmt=self.fmt,
         )
-        r = requests.get(url, params=options)
+        r = requests.get(url, params=options, timeout=timeout)
         return self._fmt(r)
-    # def view
 
-    def update(self, data):
+    def update(self, data, timeout=None):
         """Update channel feed.
 
         Full reference:
@@ -64,7 +63,8 @@ class Channel(object):
             id=self.id,
             fmt=self.fmt,
         )
-        r = requests.post(url, params=data)
+
+        r = requests.post(url, params=data, timeout=timeout)
         return self._fmt(r)
 
     def _fmt(self, r):
