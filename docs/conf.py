@@ -21,6 +21,7 @@
 # import sys
 # sys.path.insert(0, os.path.abspath('.'))
 import sphinx_bootstrap_theme
+import thingspeak
 
 # -- General configuration ------------------------------------------------
 
@@ -65,7 +66,7 @@ author = 'Mikołaj Chwalisz'
 # built documents.
 #
 # The short X.Y version.
-version = '0.3.6'
+version = thingspeak.__version__
 # The full version, including alpha/beta/rc tags.
 release = '0.3.6'
 
