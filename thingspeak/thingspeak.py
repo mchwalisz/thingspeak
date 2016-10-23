@@ -47,7 +47,7 @@ class Channel(object):
         return self._fmt(r)
 
     def get_field_last(self, field=None, options=dict()):
-        """Get last result from particular field
+        """To get the age of the most recent entry in a channel's field feed
 
         Full reference:
         https://uk.mathworks.com/help/thingspeak/get-channel-field-feed.html#field_last_data
