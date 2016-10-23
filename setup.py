@@ -51,7 +51,7 @@ setup(
     install_requires=['requests', 'docopt'],
 
     extras_require={
-        'dev': ['check-manifest', 'tox', 'sphinx'],
+        'dev': ['check-manifest', 'tox', 'sphinx', 'sphinx_bootstrap_theme'],
         'test': ['coverage'],
     },
     entry_points={
