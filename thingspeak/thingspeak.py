@@ -7,11 +7,14 @@ thingspeak_url = 'https://api.thingspeak.com/'
 
 class Channel(object):
     """ThingSpeak channel object"""
-    def __init__(self, id, api_key=None, write_key=None, fmt='json'):
+    def __init__(self,
+            id, api_key=None, write_key=None,
+            fmt='json', timeout=None):
         self.id = id
         self.api_key = api_key
         self.write_key = write_key
         self.fmt = ('.' + fmt) if fmt in ['json', 'xml'] else ''
+        timeout=self.timeout = timeout
 
     def get(self, options=dict()):
         """Get a channel feed.
@@ -26,7 +29,7 @@ class Channel(object):
             id=self.id,
             fmt=self.fmt,
         )
-        r = requests.get(url, params=options)
+        r = requests.get(url, params=options, timeout=self.timeout)
         return self._fmt(r)
 
     def get_field(self, field=None, options=dict()):
@@ -43,7 +46,7 @@ class Channel(object):
             field=field,
             fmt=self.fmt,
         )
-        r = requests.get(url, params=options)
+        r = requests.get(url, params=options, timeout=self.timeout)
         return self._fmt(r)
 
     def get_field_last(self, field=None, options=dict()):
@@ -60,7 +63,7 @@ class Channel(object):
             field=field,
             fmt=self.fmt,
         )
-        r = requests.get(url, params=options)
+        r = requests.get(url, params=options, timeout=self.timeout)
         return self._fmt(r)
 
     def get_last_data_age(self, field=None, options=dict()):
@@ -77,7 +80,7 @@ class Channel(object):
             field=field,
             fmt=self.fmt,
         )
-        r = requests.get(url, params=options)
+        r = requests.get(url, params=options, timeout=self.timeout)
         return self._fmt(r)
 
     def view(self):
@@ -90,7 +93,7 @@ class Channel(object):
             id=self.id,
             fmt=self.fmt,
         )
-        r = requests.get(url, params=options)
+        r = requests.get(url, params=options, timeout=self.timeout)
         return self._fmt(r)
 
     def update(self, data):
@@ -106,7 +109,7 @@ class Channel(object):
             id=self.id,
             fmt=self.fmt,
         )
-        r = requests.post(url, params=data)
+        r = requests.post(url, params=data, timeout=self.timeout)
         return self._fmt(r)
 
     def _fmt(self, r):
