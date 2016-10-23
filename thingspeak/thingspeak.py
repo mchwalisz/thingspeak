@@ -92,7 +92,6 @@ class Channel(object):
         )
         r = requests.get(url, params=options)
         return self._fmt(r)
-    # def view
 
     def update(self, data):
         """Update channel feed.
