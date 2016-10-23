@@ -17,7 +17,7 @@ class Channel(object):
         """Get a channel feed.
 
         Full reference:
-        https://de.mathworks.com/help/thingspeak/get-a-channel-feed.html
+        https://mathworks.com/help/thingspeak/get-a-channel-feed.html
         """
         if self.api_key is not None:
             options['api_key'] = self.api_key
@@ -33,7 +33,7 @@ class Channel(object):
         """Get particular field
 
         Full reference:
-        https://de.mathworks.com/help/thingspeak/get-channel-field-feed.html
+        https://mathworks.com/help/thingspeak/get-channel-field-feed.html
         """
         if self.api_key is not None:
             options['api_key'] = self.api_key
@@ -50,7 +50,7 @@ class Channel(object):
         """To get the age of the most recent entry in a channel's field feed
 
         Full reference:
-        https://uk.mathworks.com/help/thingspeak/get-channel-field-feed.html#field_last_data
+        https://mathworks.com/help/thingspeak/get-channel-field-feed.html#field_last_data
         """
         if self.api_key is not None:
             options['api_key'] = self.api_key
@@ -67,7 +67,7 @@ class Channel(object):
         """Get last result from particular field in text format
 
         Full reference:
-        https://uk.mathworks.com/help/thingspeak/get-channel-field-feed.html#field_last_data_age
+        https://mathworks.com/help/thingspeak/get-channel-field-feed.html#field_last_data_age
         """
         if self.api_key is not None:
             options['api_key'] = self.api_key
@@ -98,7 +98,7 @@ class Channel(object):
         """Update channel feed.
 
         Full reference:
-        https://de.mathworks.com/help/thingspeak/update-channel-feed.html
+        https://mathworks.com/help/thingspeak/update-channel-feed.html
         """
         if self.write_key is not None:
             data['api_key'] = self.write_key
