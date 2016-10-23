@@ -51,7 +51,7 @@ setup(
     install_requires=['requests', 'docopt'],
 
     extras_require={
-        'dev': ['check-manifest', 'tox'],
+        'dev': ['check-manifest', 'tox', 'sphinx'],
         'test': ['coverage'],
     },
     entry_points={
