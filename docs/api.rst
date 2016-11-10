@@ -1,5 +1,5 @@
-ThingSpeak API
-==============
+API
+===
 
 .. autoclass:: thingspeak.Channel
     :members:
