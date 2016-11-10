@@ -49,11 +49,11 @@ setup(
     keywords='thingspeak development api',
     packages=find_packages(exclude=['contrib', 'docs', 'tests']),
     install_requires=['requests', 'docopt'],
-
     extras_require={
         'dev': ['check-manifest', 'tox', 'sphinx', 'sphinx_bootstrap_theme'],
-        'test': ['coverage'],
     },
+    setup_requires=['pytest-runner', 'pycodestyle'],
+    tests_require=['pytest', 'pycodestyle', 'responses'],
     entry_points={
         'console_scripts': [
             'thingspeak=thingspeak.cmdline:main',
