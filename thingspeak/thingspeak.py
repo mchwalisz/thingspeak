@@ -19,7 +19,8 @@ class Channel(object):
     def get(self, options=dict()):
         """Get a channel feed.
 
-        `get-a-channel-feed <https://mathworks.com/help/thingspeak/get-a-channel-feed.html>`_
+        `get-a-channel-feed
+        <https://mathworks.com/help/thingspeak/get-a-channel-feed.html>`_
         """
         if self.api_key is not None:
             options['api_key'] = self.api_key
@@ -34,7 +35,8 @@ class Channel(object):
     def get_field(self, field=None, options=dict()):
         """Get particular field
 
-        `get-channel-field-feed <https://mathworks.com/help/thingspeak/get-channel-field-feed.html>`_
+        `get-channel-field-feed
+        <https://mathworks.com/help/thingspeak/get-channel-field-feed.html>`_
         """
         if self.api_key is not None:
             options['api_key'] = self.api_key
@@ -50,7 +52,8 @@ class Channel(object):
     def get_field_last(self, field=None, options=dict()):
         """To get the age of the most recent entry in a channel's field feed
 
-        `get-channel-field-feed field_last_data <https://mathworks.com/help/thingspeak/get-channel-field-feed.html#field_last_data>`_
+        `get-channel-field-feed field_last_data
+        <https://mathworks.com/help/thingspeak/get-channel-field-feed.html#field_last_data>`_
         """
         if self.api_key is not None:
             options['api_key'] = self.api_key
@@ -66,7 +69,8 @@ class Channel(object):
     def get_last_data_age(self, field=None, options=dict()):
         """Get last result from particular field in text format
 
-        `get-channel-field-feed field_last_data_age <https://mathworks.com/help/thingspeak/get-channel-field-feed.html#field_last_data_age>`_
+        `get-channel-field-feed field_last_data_age
+        <https://mathworks.com/help/thingspeak/get-channel-field-feed.html#field_last_data_age>`_
         """
         if self.api_key is not None:
             options['api_key'] = self.api_key
@@ -82,7 +86,8 @@ class Channel(object):
     def view(self):
         """View a Channel
 
-        `view-a-channel <https://de.mathworks.com/help/thingspeak/view-a-channel.html>`_
+        `view-a-channel
+        <https://de.mathworks.com/help/thingspeak/view-a-channel.html>`_
         """
         options = dict()
         if self.api_key is not None:
@@ -98,7 +103,8 @@ class Channel(object):
     def update(self, data):
         """Update channel feed.
 
-        `update-channel-feed <https://mathworks.com/help/thingspeak/update-channel-feed.html>`_
+        `update-channel-feed
+        <https://mathworks.com/help/thingspeak/update-channel-feed.html>`_
         """
         if self.write_key is not None:
             data['api_key'] = self.write_key
