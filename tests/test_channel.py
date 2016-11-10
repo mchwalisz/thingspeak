@@ -1,6 +1,7 @@
 import pytest
 import thingspeak
 import responses
+import sys
 
 
 @pytest.fixture
@@ -41,6 +42,8 @@ def get_channel():
     return body
 
 
+@pytest.mark.xfail(sys.version_info < (3, 3),
+                   reason="python3.3 api changes")
 def test_missing_id():
     with pytest.raises(TypeError) as excinfo:
         thingspeak.Channel()
