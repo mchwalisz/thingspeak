@@ -1,5 +1,8 @@
-Examples
-========
+Basic usage
+===========
+
+Command line
+------------
 
 It is possible to view the channel directly:
 
@@ -34,6 +37,9 @@ It is possible to view the channel directly:
        }
      ]
    }
+
+Python interface
+----------------
 
 Or through Python interface:
 

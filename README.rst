@@ -7,6 +7,10 @@ This repository is contains Python module that helps in talking to ThingSpeak AP
 
 Full documentation is under http://thingspeak.readthedocs.io/en/latest/
 
+Install using::
+
+    pip install thingspeak
+
 .. warning::
 
    This is a complete redesign of the library as compared to v0.1.1.
