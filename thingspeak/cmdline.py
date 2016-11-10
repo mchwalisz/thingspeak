@@ -31,8 +31,7 @@ Other options:
    --version           show version and exit
 """
 
-# import thingspeak as ts
-import __init__ as ts
+import thingspeak as ts
 from docopt import docopt
 import logging
 import json
