@@ -14,7 +14,7 @@ class Channel(object):
         self.api_key = api_key
         self.write_key = write_key
         self.fmt = ('.' + fmt) if fmt in ['json', 'xml'] else ''
-        timeout=self.timeout = timeout
+        self.timeout = timeout
 
     def get(self, options=dict()):
         """Get a channel feed.
