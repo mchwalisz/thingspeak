@@ -4,13 +4,12 @@ _build/
 dist/
 *.egg-info/
 *.egg
+.eggs/
 *.py[cod]
 __pycache__/
 *.so
 *~
+.coverage
 
-# due to using tox and pytest
-.tox
+# due to using pytest
 .cache
-
-thingspeak/__version__.py

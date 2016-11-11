@@ -50,7 +50,7 @@ setup(
     packages=find_packages(exclude=['contrib', 'docs', 'tests']),
     install_requires=['requests', 'docopt'],
     extras_require={
-        'dev': ['check-manifest', 'tox', 'sphinx', 'sphinx_bootstrap_theme'],
+        'dev': ['check-manifest', 'sphinx'],
     },
     setup_requires=['pytest-runner', 'pycodestyle'],
     tests_require=['pytest', 'pycodestyle', 'responses'],
