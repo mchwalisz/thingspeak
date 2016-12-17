@@ -1,7 +1,7 @@
-import pytest
-import thingspeak
 import responses
 import sys
+import pytest
+from thingspeak import Channel
 
 
 @pytest.fixture
@@ -46,12 +46,19 @@ def get_channel():
                    reason="python3.3 api changes")
 def test_missing_id():
     with pytest.raises(TypeError) as excinfo:
-        thingspeak.Channel()
+        Channel()
     assert 'missing 1 required positional argument' in str(excinfo.value)
+
+
+def test_channel():
+    ch_id = 9
+    ch = Channel(ch_id)
+    assert ch.id == ch_id
 
 
 @responses.activate
 def test_get(get_channel):
     ch = thingspeak.Channel(9, fmt='json')
+    ch = Channel(9, fmt='json')
     assert ch.get({'results': 2}) == get_channel
     assert len(responses.calls) == 1
