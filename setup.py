@@ -52,8 +52,8 @@ setup(
     extras_require={
         'dev': ['check-manifest', 'sphinx'],
     },
-    setup_requires=['pytest-runner', 'pycodestyle'],
-    tests_require=['pytest', 'pycodestyle', 'responses'],
+    setup_requires=['pytest-runner', ''],
+    tests_require=['pytest', 'pytest-flakes', 'pytest-pep8', 'responses'],
     entry_points={
         'console_scripts': [
             'thingspeak=thingspeak.cmdline:main',
