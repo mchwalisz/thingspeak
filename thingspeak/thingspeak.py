@@ -2,19 +2,20 @@
 
 import requests
 
-thingspeak_url = 'https://api.thingspeak.com/'
-
 
 class Channel(object):
     """ThingSpeak channel object"""
+
     def __init__(self,
             id, api_key=None, write_key=None,
-            fmt='json', timeout=None):
+            fmt='json', timeout=None,
+            server_url='https://api.thingspeak.com'):
         self.id = id
         self.api_key = api_key
         self.write_key = write_key
         self.fmt = ('.' + fmt) if fmt in ['json', 'xml'] else ''
         self.timeout = timeout
+        self.server_url = server_url
 
     def get(self, options=dict()):
         """Get a channel feed.
@@ -24,8 +25,8 @@ class Channel(object):
         """
         if self.api_key is not None:
             options['api_key'] = self.api_key
-        url = '{ts}/channels/{id}/feeds{fmt}'.format(
-            ts=thingspeak_url,
+        url = '{server_url}/channels/{id}/feeds{fmt}'.format(
+            server_url=self.server_url,
             id=self.id,
             fmt=self.fmt,
         )
@@ -40,8 +41,8 @@ class Channel(object):
         """
         if self.api_key is not None:
             options['api_key'] = self.api_key
-        url = '{ts}/channels/{id}/fields/{field}{fmt}'.format(
-            ts=thingspeak_url,
+        url = '{server_url}/channels/{id}/fields/{field}{fmt}'.format(
+            server_url=self.server_url,
             id=self.id,
             field=field,
             fmt=self.fmt,
@@ -57,8 +58,8 @@ class Channel(object):
         """
         if self.api_key is not None:
             options['api_key'] = self.api_key
-        url = '{ts}/channels/{id}/fields/{field}/last{fmt}'.format(
-            ts=thingspeak_url,
+        url = '{server_url}/channels/{id}/fields/{field}/last{fmt}'.format(
+            server_url=self.server_url,
             id=self.id,
             field=field,
             fmt=self.fmt,
@@ -74,8 +75,9 @@ class Channel(object):
         """
         if self.api_key is not None:
             options['api_key'] = self.api_key
-        url = '{ts}/channels/{id}/fields/{field}/last_data_age{fmt}'.format(
-            ts=thingspeak_url,
+        url = '{server_url}/channels/{id}/fields/{field}/last_data_age{fmt}'
+        url = url.format(
+            server_url=self.server_url,
             id=self.id,
             field=field,
             fmt=self.fmt,
@@ -92,8 +94,8 @@ class Channel(object):
         options = dict()
         if self.api_key is not None:
             options['api_key'] = self.api_key
-        url = '{ts}/channels/{id}{fmt}'.format(
-            ts=thingspeak_url,
+        url = '{server_url}/channels/{id}{fmt}'.format(
+            server_url=self.server_url,
             id=self.id,
             fmt=self.fmt,
         )
@@ -108,8 +110,8 @@ class Channel(object):
         """
         if self.write_key is not None:
             data['api_key'] = self.write_key
-        url = '{ts}/update{fmt}'.format(
-            ts=thingspeak_url,
+        url = '{server_url}/update{fmt}'.format(
+            server_url=self.server_url,
             id=self.id,
             fmt=self.fmt,
         )
