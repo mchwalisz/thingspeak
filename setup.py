@@ -23,6 +23,8 @@ if not version:
 with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
     long_description = f.read()
 
+test_requirements = ['pytest', 'pytest-flakes', 'pytest-pep8', 'vcrpy']
+
 setup(
     name='thingspeak',
     version=version,
@@ -44,16 +46,16 @@ setup(
         'Intended Audience :: Information Technology',
         'License :: OSI Approved :: ' +
         'GNU Lesser General Public License v3 (LGPLv3)',
-        'Programming Language :: Python :: 2',
+        'Programming Language :: Python :: 3',
     ],
     keywords='thingspeak development api',
     packages=find_packages(exclude=['contrib', 'docs', 'tests']),
     install_requires=['requests', 'docopt'],
     extras_require={
-        'dev': ['check-manifest', 'sphinx'],
+        'dev': ['check-manifest', 'sphinx'] + test_requirements,
     },
-    setup_requires=['pytest-runner', ''],
-    tests_require=['pytest', 'pytest-flakes', 'pytest-pep8', 'vcrpy'],
+    setup_requires=['pytest-runner'],
+    tests_require=test_requirements,
     entry_points={
         'console_scripts': [
             'thingspeak=thingspeak.cmdline:main',
