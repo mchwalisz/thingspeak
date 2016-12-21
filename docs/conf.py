@@ -36,7 +36,8 @@ html_theme_options = {
     'github_repo': 'thingspeak',
     'github_banner': True,
     'github_button': True,
-    'extra_nav_links': {'ThingSpeak': "https://thingspeak.com/"},
+    'extra_nav_links': {'ThingSpeak.com': 'https://thingspeak.com/',
+        'Say Thanks!': 'https://saythanks.io/to/mchwalisz'},
     'analytics_id': 'UA-47922208-4',
 }
 html_sidebars = {
