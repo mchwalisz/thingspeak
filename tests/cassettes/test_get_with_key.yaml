@@ -1,0 +1,60 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept: ['*/*']
+      Accept-Encoding: ['gzip, deflate']
+      Connection: [keep-alive]
+      User-Agent: [python-requests/2.11.1]
+    method: GET
+    uri: https://api.thingspeak.com/channels/86945/feeds.json?api_key=THINGSPEAK_KEY
+  response:
+    body: {string: '{"channel":{"id":86945,"name":"py thingspeak","description":"Python
+        thingspeak testing","latitude":"0.0","longitude":"0.0","field1":"cpu_pc","field2":"mem_avail_mb","created_at":"2016-02-09T20:22:23Z","updated_at":"2016-12-18T09:59:16Z","last_entry_id":2},"feeds":[{"created_at":"2016-02-09T20:25:53Z","entry_id":1,"field1":"9.2","field2":"1000"},{"created_at":"2016-02-09T20:30:16Z","entry_id":2,"field1":"25.0","field2":"58.9"}]}'}
+    headers:
+      Access-Control-Allow-Headers: ['origin, content-type, X-Requested-With']
+      Access-Control-Allow-Methods: ['GET, POST, PUT, OPTIONS, DELETE, PATCH']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Max-Age: ['1800']
+      Cache-Control: ['max-age=0, private, must-revalidate']
+      Connection: [close]
+      Content-Type: [application/json; charset=utf-8]
+      Date: ['Wed, 21 Dec 2016 17:15:01 GMT']
+      ETag: ['"375a434b0706412782b67f89eb0b6eee"']
+      Server: [nginx/1.9.3 + Phusion Passenger 4.0.57]
+      Status: [200 OK]
+      X-Frame-Options: [ALLOWALL]
+      X-Powered-By: [Phusion Passenger 4.0.57]
+      X-Request-Id: [5fb9d7ef-5b68-435d-8044-0e626e7fd8e9]
+      X-Runtime: ['0.031972']
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: ['*/*']
+      Accept-Encoding: ['gzip, deflate']
+      Connection: [keep-alive]
+      User-Agent: [python-requests/2.11.1]
+    method: GET
+    uri: https://api.thingspeak.com/channels/204504/feeds.json?api_key=THINGSPEAK_KEY
+  response:
+    body: {string: '{"channel":{"id":204504,"name":"py thingspeak","description":"Testing
+        private channel","latitude":"0.0","longitude":"0.0","field1":"label1","field2":"label2","created_at":"2016-12-18T11:03:55Z","updated_at":"2016-12-18T11:03:55Z","last_entry_id":null},"feeds":[]}'}
+    headers:
+      Access-Control-Allow-Headers: ['origin, content-type, X-Requested-With']
+      Access-Control-Allow-Methods: ['GET, POST, PUT, OPTIONS, DELETE, PATCH']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Max-Age: ['1800']
+      Cache-Control: ['max-age=0, private, must-revalidate']
+      Connection: [close]
+      Content-Type: [application/json; charset=utf-8]
+      Date: ['Wed, 21 Dec 2016 17:15:02 GMT']
+      ETag: ['"3404942badad583fbb8a9da440875abc"']
+      Server: [nginx/1.9.3 + Phusion Passenger 4.0.57]
+      Status: [200 OK]
+      X-Frame-Options: [ALLOWALL]
+      X-Powered-By: [Phusion Passenger 4.0.57]
+      X-Request-Id: [2e6bebdf-4ab5-4535-9265-6eaac1fc1520]
+      X-Runtime: ['0.028986']
+    status: {code: 200, message: OK}
+version: 1

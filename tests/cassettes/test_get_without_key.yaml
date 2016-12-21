@@ -1,0 +1,58 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept: ['*/*']
+      Accept-Encoding: ['gzip, deflate']
+      Connection: [keep-alive]
+      User-Agent: [python-requests/2.11.1]
+    method: GET
+    uri: https://api.thingspeak.com/channels/86945/feeds.json
+  response:
+    body: {string: '{"channel":{"id":86945,"name":"py thingspeak","description":"Python
+        thingspeak testing","latitude":"0.0","longitude":"0.0","field1":"cpu_pc","field2":"mem_avail_mb","created_at":"2016-02-09T20:22:23Z","updated_at":"2016-12-18T09:59:16Z","last_entry_id":2},"feeds":[{"created_at":"2016-02-09T20:25:53Z","entry_id":1,"field1":"9.2","field2":"1000"},{"created_at":"2016-02-09T20:30:16Z","entry_id":2,"field1":"25.0","field2":"58.9"}]}'}
+    headers:
+      Access-Control-Allow-Headers: ['origin, content-type, X-Requested-With']
+      Access-Control-Allow-Methods: ['GET, POST, PUT, OPTIONS, DELETE, PATCH']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Max-Age: ['1800']
+      Cache-Control: ['max-age=0, private, must-revalidate']
+      Connection: [close]
+      Content-Type: [application/json; charset=utf-8]
+      Date: ['Wed, 21 Dec 2016 17:15:02 GMT']
+      ETag: ['"375a434b0706412782b67f89eb0b6eee"']
+      Server: [nginx/1.9.3 + Phusion Passenger 4.0.57]
+      Status: [200 OK]
+      X-Frame-Options: [ALLOWALL]
+      X-Powered-By: [Phusion Passenger 4.0.57]
+      X-Request-Id: [fc2aea2e-5b84-48fe-896a-dff0a18f6d5b]
+      X-Runtime: ['0.047037']
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: ['*/*']
+      Accept-Encoding: ['gzip, deflate']
+      Connection: [keep-alive]
+      User-Agent: [python-requests/2.11.1]
+    method: GET
+    uri: https://api.thingspeak.com/channels/204504/feeds.json
+  response:
+    body: {string: '-1'}
+    headers:
+      Access-Control-Allow-Headers: ['origin, content-type, X-Requested-With']
+      Access-Control-Allow-Methods: ['GET, POST, PUT, OPTIONS, DELETE, PATCH']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Max-Age: ['1800']
+      Cache-Control: [no-cache]
+      Connection: [close]
+      Content-Type: [application/json; charset=utf-8]
+      Date: ['Wed, 21 Dec 2016 17:15:03 GMT']
+      Server: [nginx/1.9.3 + Phusion Passenger 4.0.57]
+      Status: [400 Bad Request]
+      X-Frame-Options: [ALLOWALL]
+      X-Powered-By: [Phusion Passenger 4.0.57]
+      X-Request-Id: [5f4b913f-1887-4131-86c7-b27e0ccd92b1]
+      X-Runtime: ['0.308577']
+    status: {code: 400, message: Bad Request}
+version: 1

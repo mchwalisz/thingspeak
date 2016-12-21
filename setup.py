@@ -53,7 +53,7 @@ setup(
         'dev': ['check-manifest', 'sphinx'],
     },
     setup_requires=['pytest-runner', ''],
-    tests_require=['pytest', 'pytest-flakes', 'pytest-pep8', 'responses'],
+    tests_require=['pytest', 'pytest-flakes', 'pytest-pep8', 'vcrpy'],
     entry_points={
         'console_scripts': [
             'thingspeak=thingspeak.cmdline:main',

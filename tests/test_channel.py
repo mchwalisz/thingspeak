@@ -1,45 +1,22 @@
-import responses
 import sys
+import json
+import vcr
 import pytest
+import requests
 from thingspeak import Channel
 
+import logging
 
-@pytest.fixture
-def get_channel():
-    body = '''
-{
-  "channel": {
-    "created_at": "2010-12-14T01:20:06Z",
-    "description": "Netduino Plus connected to sensors around the house",
-    "field1": "Light",
-    "field2": "Outside Temperature",
-    "id": 9,
-    "last_entry_id": 11127690,
-    "latitude": "40.44",
-    "longitude": "-79.9965",
-    "name": "my_house",
-    "updated_at": "2016-11-10T23:03:02Z"
-  },
-  "feeds": [
-    {
-      "created_at": "2016-11-10T23:02:47Z",
-      "entry_id": 11127689,
-      "field1": "280",
-      "field2": "37.197452229299365"
-    },
-    {
-      "created_at": "2016-11-10T23:03:02Z",
-      "entry_id": 11127690,
-      "field1": "279",
-      "field2": "40.764331210191081"
-    }
-  ]
-}
-'''
-    responses.add(responses.GET,
-        'https://api.thingspeak.com//channels/9/feeds.json',
-        body=body, status=200, content_type='application/json')
-    return body
+logging.basicConfig()
+vcr_log = logging.getLogger("vcr")
+vcr_log.setLevel(logging.INFO)
+
+ts_vcr = vcr.VCR(
+    record_mode='new_episodes',
+    cassette_library_dir='tests/cassettes',
+    path_transformer=vcr.VCR.ensure_suffix('.yaml'),
+    filter_query_parameters=[('api_key', 'THINGSPEAK_KEY')],
+)
 
 
 @pytest.mark.xfail(sys.version_info < (3, 3),
@@ -50,15 +27,40 @@ def test_missing_id():
     assert 'missing 1 required positional argument' in str(excinfo.value)
 
 
-def test_channel():
-    ch_id = 9
-    ch = Channel(ch_id)
-    assert ch.id == ch_id
+def test_channel(channel_param):
+    ch = Channel(channel_param.id)
+    assert ch.id == channel_param.id
+    assert ch.api_key is None
+    assert ch.server_url == 'https://api.thingspeak.com'
+    ch = Channel(channel_param.id, api_key=channel_param.api_key)
+    assert ch.api_key is channel_param.api_key
 
 
-@responses.activate
-def test_get(get_channel):
-    ch = thingspeak.Channel(9, fmt='json')
-    ch = Channel(9, fmt='json')
-    assert ch.get({'results': 2}) == get_channel
-    assert len(responses.calls) == 1
+@ts_vcr.use_cassette()
+def test_get_with_key(channel_param):
+    ch = Channel(id=channel_param.id, api_key=channel_param.api_key)
+    result = json.loads(ch.get())
+    assert type(result) == dict
+
+
+@ts_vcr.use_cassette()
+def test_get_without_key(channel_param):
+    ch = Channel(id=channel_param.id)
+    print(ch.api_key)
+    if channel_param.access == 'private':
+        with pytest.raises(requests.exceptions.HTTPError) as excinfo:
+            ch.get()
+        excinfo.match(r'400 .*')
+    else:
+        result = json.loads(ch.get())
+        assert type(result) == dict
+
+
+@ts_vcr.use_cassette()
+def test_get_wrong_key(channel_param):
+    if channel_param.access == 'public':
+        pytest.skip()
+    ch = Channel(id=channel_param.id, api_key='wrong key')
+    with pytest.raises(requests.exceptions.HTTPError) as excinfo:
+        ch.get()
+    excinfo.match(r'400 .*')
