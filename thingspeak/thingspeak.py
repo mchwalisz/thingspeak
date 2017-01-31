@@ -6,10 +6,8 @@ import requests
 class Channel(object):
     """ThingSpeak channel object"""
 
-    def __init__(self,
-            id, api_key=None,
-            fmt='json', timeout=None,
-            server_url='https://api.thingspeak.com'):
+    def __init__(self, id=None, api_key=None, fmt='json', timeout=None,
+                 server_url='https://api.thingspeak.com'):
         self.id = id
         self.api_key = api_key
         self.fmt = ('.' + fmt) if fmt in ['json', 'xml'] else ''
@@ -109,23 +107,33 @@ class Channel(object):
         r = requests.get(url, params=options, timeout=self.timeout)
         return self._fmt(r)
 
-    def update(self, data):
+    def update(self, data, field=None):
         """Update channel feed.
 
         `update-channel-feed
         <https://mathworks.com/help/thingspeak/update-channel-feed.html>`_
         """
+        data_req = dict()
+
+        if isinstance(data, dict):
+            data_req = data
+        else:
+            if field is not None:
+                data_req['field{}'.format(field)] = data
+            else:
+                data_req['field1'] = data
+
         if self.api_key is not None:
-            data['api_key'] = self.api_key
+            data_req['api_key'] = self.api_key
+
         url = '{server_url}/update{fmt}'.format(
-            server_url=self.server_url,
-            id=self.id,
-            fmt=self.fmt,
-        )
-        r = requests.post(url, params=data, timeout=self.timeout)
+            server_url=self.server_url, fmt=self.fmt)
+
+        r = requests.post(url, params=data_req, timeout=self.timeout)
         return self._fmt(r)
 
     def _fmt(self, r):
+        """Format helper."""
         r.raise_for_status()
         if self.fmt == 'json':
             return r.json()
