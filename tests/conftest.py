@@ -6,17 +6,19 @@ from collections import namedtuple
 descr = namedtuple('ChannelParam', 'id access api_key write')
 
 channels = [
-    descr(id=int(os.environ['THINGSPEAK_ID_PUBLIC']),
+    descr(id=int(os.environ.get('THINGSPEAK_ID_PUBLIC', '86945')),
         access='public',
-        api_key=os.environ['THINGSPEAK_KEY_PUBLIC'],
+        api_key=os.environ.get('THINGSPEAK_KEY_PUBLIC', 'XXXXXXXXXXXXXXXX'),
         write=True),
-    descr(id=int(os.environ['THINGSPEAK_ID_PRIVATE']),
+    descr(id=int(os.environ.get('THINGSPEAK_ID_PRIVATE', '204504')),
         access='private',
-        api_key=os.environ['THINGSPEAK_KEY_PRIVATE_WRITE'],
+        api_key=os.environ.get('THINGSPEAK_KEY_PRIVATE_WRITE',
+            'XXXXXXXXXXXXXXXX'),
         write=True),
-    descr(id=int(os.environ['THINGSPEAK_ID_PRIVATE']),
+    descr(id=int(os.environ.get('THINGSPEAK_ID_PRIVATE', '204504')),
         access='private',
-        api_key=os.environ['THINGSPEAK_KEY_PRIVATE_READ'],
+        api_key=os.environ.get('THINGSPEAK_KEY_PRIVATE_READ',
+            'YYYYYYYYYYYYYYYY'),
         write=False),
 ]
 
