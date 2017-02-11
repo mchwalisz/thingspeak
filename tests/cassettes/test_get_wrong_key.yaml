@@ -5,9 +5,9 @@ interactions:
       Accept: ['*/*']
       Accept-Encoding: ['gzip, deflate']
       Connection: [keep-alive]
-      User-Agent: [python-requests/2.11.1]
+      User-Agent: [python-requests/2.13.0]
     method: GET
-    uri: https://api.thingspeak.com/channels/204504/feeds.json?api_key=THINGSPEAK_KEY
+    uri: https://api.thingspeak.com/channels/204504/feeds.json?api_key=wrong_key
   response:
     body: {string: '-1'}
     headers:
@@ -18,12 +18,12 @@ interactions:
       Cache-Control: [no-cache]
       Connection: [close]
       Content-Type: [application/json; charset=utf-8]
-      Date: ['Wed, 21 Dec 2016 17:15:04 GMT']
+      Date: ['Sat, 11 Feb 2017 21:40:40 GMT']
       Server: [nginx/1.9.3 + Phusion Passenger 4.0.57]
       Status: [400 Bad Request]
       X-Frame-Options: [ALLOWALL]
       X-Powered-By: [Phusion Passenger 4.0.57]
-      X-Request-Id: [bf6045ba-847b-406c-b469-1fcb6e336704]
-      X-Runtime: ['0.013540']
+      X-Request-Id: [7df55170-eb69-42da-a3fa-1f85abd477a7]
+      X-Runtime: ['1.290582']
     status: {code: 400, message: Bad Request}
 version: 1
