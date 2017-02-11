@@ -1,0 +1,91 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept: ['*/*']
+      Accept-Encoding: ['gzip, deflate']
+      Connection: [keep-alive]
+      Content-Length: ['0']
+      User-Agent: [python-requests/2.13.0]
+    method: POST
+    uri: https://api.thingspeak.com/update.json?api_key=public&field1=1
+  response:
+    body: {string: '{"channel_id":86945,"field1":"1","field2":null,"field3":null,"field4":null,"field5":null,"field6":null,"field7":null,"field8":null,"created_at":"2017-02-11T21:40:41Z","entry_id":13,"status":null,"latitude":null,"longitude":null,"elevation":null}'}
+    headers:
+      Access-Control-Allow-Headers: ['origin, content-type, X-Requested-With']
+      Access-Control-Allow-Methods: ['GET, POST, PUT, OPTIONS, DELETE, PATCH']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Max-Age: ['1800']
+      Cache-Control: ['max-age=0, private, must-revalidate']
+      Connection: [close]
+      Content-Type: [application/json; charset=utf-8]
+      Date: ['Sat, 11 Feb 2017 21:40:41 GMT']
+      ETag: ['"de95b99a3b5a16d925109d93b04ce713"']
+      Server: [nginx/1.9.3 + Phusion Passenger 4.0.57]
+      Set-Cookie: [request_method=POST; path=/]
+      Status: [200 OK]
+      X-Frame-Options: [ALLOWALL]
+      X-Powered-By: [Phusion Passenger 4.0.57]
+      X-Request-Id: [30463684-23c4-4d3d-bb70-ba37cd033740]
+      X-Runtime: ['0.802565']
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: ['*/*']
+      Accept-Encoding: ['gzip, deflate']
+      Connection: [keep-alive]
+      Content-Length: ['0']
+      User-Agent: [python-requests/2.13.0]
+    method: POST
+    uri: https://api.thingspeak.com/update.json?api_key=private_write&field1=1
+  response:
+    body: {string: '{"channel_id":204504,"field1":"1","field2":null,"field3":null,"field4":null,"field5":null,"field6":null,"field7":null,"field8":null,"created_at":"2017-02-11T21:40:42Z","entry_id":7,"status":null,"latitude":null,"longitude":null,"elevation":null}'}
+    headers:
+      Access-Control-Allow-Headers: ['origin, content-type, X-Requested-With']
+      Access-Control-Allow-Methods: ['GET, POST, PUT, OPTIONS, DELETE, PATCH']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Max-Age: ['1800']
+      Cache-Control: ['max-age=0, private, must-revalidate']
+      Connection: [close]
+      Content-Type: [application/json; charset=utf-8]
+      Date: ['Sat, 11 Feb 2017 21:40:43 GMT']
+      ETag: ['"c805396ed007ee3598561714443cfbb5"']
+      Server: [nginx/1.9.3 + Phusion Passenger 4.0.57]
+      Set-Cookie: [request_method=POST; path=/]
+      Status: [200 OK]
+      X-Frame-Options: [ALLOWALL]
+      X-Powered-By: [Phusion Passenger 4.0.57]
+      X-Request-Id: [1f271f79-361b-4165-ba8e-f2edbacaebdb]
+      X-Runtime: ['0.371554']
+    status: {code: 200, message: OK}
+- request:
+    body: null
+    headers:
+      Accept: ['*/*']
+      Accept-Encoding: ['gzip, deflate']
+      Connection: [keep-alive]
+      Content-Length: ['0']
+      User-Agent: [python-requests/2.13.0]
+    method: POST
+    uri: https://api.thingspeak.com/update.json?api_key=private_read&field1=1
+  response:
+    body: {string: '0'}
+    headers:
+      Access-Control-Allow-Headers: ['origin, content-type, X-Requested-With']
+      Access-Control-Allow-Methods: ['GET, POST, PUT, OPTIONS, DELETE, PATCH']
+      Access-Control-Allow-Origin: ['*']
+      Access-Control-Max-Age: ['1800']
+      Cache-Control: [no-cache]
+      Connection: [close]
+      Content-Type: [application/json; charset=utf-8]
+      Date: ['Sat, 11 Feb 2017 21:40:43 GMT']
+      Server: [nginx/1.9.3 + Phusion Passenger 4.0.57]
+      Set-Cookie: [request_method=POST; path=/]
+      Status: [400 Bad Request]
+      X-Frame-Options: [ALLOWALL]
+      X-Powered-By: [Phusion Passenger 4.0.57]
+      X-Request-Id: [be323dca-1d01-405e-b885-8d593cc68a39]
+      X-Runtime: ['0.010073']
+    status: {code: 400, message: Bad Request}
+version: 1

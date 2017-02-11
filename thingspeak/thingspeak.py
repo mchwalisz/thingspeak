@@ -117,6 +117,8 @@ class Channel(object):
         """
         if self.api_key is not None:
             data['api_key'] = self.api_key
+        else:
+            raise ValueError('Missing api_key')
         url = '{server_url}/update{fmt}'.format(
             server_url=self.server_url,
             id=self.id,

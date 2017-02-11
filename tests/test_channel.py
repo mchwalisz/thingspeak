@@ -50,3 +50,21 @@ def test_get_wrong_key(channel_param):
     with pytest.raises(requests.exceptions.HTTPError) as excinfo:
         ch.get()
     excinfo.match(r'400 .*')
+
+
+@vcr.use_cassette()
+def test_update(channel_param):
+    ch = Channel(id=channel_param.id, api_key=channel_param.api_key)
+    if channel_param.write:
+        ch.update({'field1': 1})
+    else:
+        with pytest.raises(requests.exceptions.HTTPError) as excinfo:
+            ch.update({'field1': 1})
+        excinfo.match(r'400 .*')
+
+
+def test_update_no_key(channel_param):
+    ch = Channel(id=channel_param.id)
+    with pytest.raises(ValueError) as excinfo:
+        ch.update({'field1': 1})
+    excinfo.match('Missing api_key')
