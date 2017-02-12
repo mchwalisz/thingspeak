@@ -14,11 +14,14 @@ def test_missing_id():
     assert 'missing 1 required positional argument' in str(excinfo.value)
 
 
-def test_channel(channel_param):
-    ch = Channel(channel_param.id)
+def test_channel(channel_param, servers):
+    ch = Channel(channel_param.id, server_url=servers)
     assert ch.id == channel_param.id
     assert ch.api_key is None
-    assert ch.server_url == 'https://api.thingspeak.com'
+    if servers is None:
+        ch.server_url == 'https://api.thingspeak.com'
+    else:
+        assert ch.server_url == servers
     ch = Channel(channel_param.id, api_key=channel_param.api_key)
     assert ch.api_key is channel_param.api_key
 

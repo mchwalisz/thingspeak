@@ -41,6 +41,13 @@ def channel_param(request):
     yield request.param
 
 
+@pytest.fixture(
+    params=[None, 'https://api.thingspeak.com', 'https://httpbin.com'],
+    ids=['default', 'thingspeak', 'httpbin'])
+def servers(request):
+    yield request.param
+
+
 def replace_auth(key, value, request):
     for ch_id, channel in zip(channels_ids, channels):
         if channel.api_key == value:
