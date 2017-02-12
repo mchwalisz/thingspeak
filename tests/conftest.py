@@ -50,7 +50,7 @@ def replace_auth(key, value, request):
 
 
 vcr.default_vcr = vcr.VCR(
-    record_mode='new_episodes',
+    record_mode='new_episodes' if os.environ.get('CI') == 'true' else 'none',
     cassette_library_dir='tests/cassettes',
     path_transformer=vcr.VCR.ensure_suffix('.yaml'),
     filter_query_parameters=[('api_key', replace_auth)],
