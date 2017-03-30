@@ -11,7 +11,7 @@ write_key =  # PUT YOUR WRITE KEY HERE
 def doit(channel):
 
     cpu_pc = psutil.cpu_percent()
-    mem_avail = psutil.virtual_memory().percent
+    mem_avail_mb = psutil.virtual_memory().percent
 
     try:
         response = channel.update({1: cpu_pc, 2: mem_avail})
