@@ -11,7 +11,10 @@ import re
 
 here = path.abspath(path.dirname(__file__))
 
-with open(path.join(here, 'thingspeak', '__init__.py'), 'r') as fd:
+with open(
+        path.join(here, 'thingspeak', '__init__.py'),
+        'r',
+        encoding='utf-8') as fd:
     version = re.search(r'^__version__\s*=\s*[\'"]([^\'"]*)[\'"]',
                         fd.read(), re.MULTILINE).group(1)
 
