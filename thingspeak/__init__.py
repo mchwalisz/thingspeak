@@ -3,6 +3,6 @@
 from .thingspeak import Channel
 
 __author__ = "Mikołaj Chwalisz"
-__version__ = '0.4.1'
+__version__ = "0.4.1"
 
-__all__ = ['Channel']
+__all__ = ["Channel"]

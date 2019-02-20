@@ -6,13 +6,17 @@ import requests
 class Channel(object):
     """ThingSpeak channel object"""
 
-    def __init__(self,
-            id, api_key=None,
-            fmt='json', timeout=None,
-            server_url='https://api.thingspeak.com'):
+    def __init__(
+        self,
+        id,
+        api_key=None,
+        fmt="json",
+        timeout=None,
+        server_url="https://api.thingspeak.com",
+    ):
         self.id = id
         self.api_key = api_key
-        self.fmt = ('.' + fmt) if fmt in ['json', 'xml'] else ''
+        self.fmt = ("." + fmt) if fmt in ["json", "xml"] else ""
         self.timeout = timeout
         self.server_url = server_url
 
@@ -25,11 +29,9 @@ class Channel(object):
         if options is None:
             options = dict()
         if self.api_key is not None:
-            options['api_key'] = self.api_key
-        url = '{server_url}/channels/{id}/feeds{fmt}'.format(
-            server_url=self.server_url,
-            id=self.id,
-            fmt=self.fmt,
+            options["api_key"] = self.api_key
+        url = "{server_url}/channels/{id}/feeds{fmt}".format(
+            server_url=self.server_url, id=self.id, fmt=self.fmt
         )
         r = requests.get(url, params=options, timeout=self.timeout)
         return self._fmt(r)
@@ -43,12 +45,9 @@ class Channel(object):
         if options is None:
             options = dict()
         if self.api_key is not None:
-            options['api_key'] = self.api_key
-        url = '{server_url}/channels/{id}/fields/{field}{fmt}'.format(
-            server_url=self.server_url,
-            id=self.id,
-            field=field,
-            fmt=self.fmt,
+            options["api_key"] = self.api_key
+        url = "{server_url}/channels/{id}/fields/{field}{fmt}".format(
+            server_url=self.server_url, id=self.id, field=field, fmt=self.fmt
         )
         r = requests.get(url, params=options, timeout=self.timeout)
         return self._fmt(r)
@@ -62,12 +61,9 @@ class Channel(object):
         if options is None:
             options = dict()
         if self.api_key is not None:
-            options['api_key'] = self.api_key
-        url = '{server_url}/channels/{id}/fields/{field}/last{fmt}'.format(
-            server_url=self.server_url,
-            id=self.id,
-            field=field,
-            fmt=self.fmt,
+            options["api_key"] = self.api_key
+        url = "{server_url}/channels/{id}/fields/{field}/last{fmt}".format(
+            server_url=self.server_url, id=self.id, field=field, fmt=self.fmt
         )
         r = requests.get(url, params=options, timeout=self.timeout)
         return self._fmt(r)
@@ -81,13 +77,10 @@ class Channel(object):
         if options is None:
             options = dict()
         if self.api_key is not None:
-            options['api_key'] = self.api_key
-        url = '{server_url}/channels/{id}/fields/{field}/last_data_age{fmt}'
+            options["api_key"] = self.api_key
+        url = "{server_url}/channels/{id}/fields/{field}/last_data_age{fmt}"
         url = url.format(
-            server_url=self.server_url,
-            id=self.id,
-            field=field,
-            fmt=self.fmt,
+            server_url=self.server_url, id=self.id, field=field, fmt=self.fmt
         )
         r = requests.get(url, params=options, timeout=self.timeout)
         return self._fmt(r)
@@ -100,11 +93,9 @@ class Channel(object):
         """
         options = dict()
         if self.api_key is not None:
-            options['api_key'] = self.api_key
-        url = '{server_url}/channels/{id}{fmt}'.format(
-            server_url=self.server_url,
-            id=self.id,
-            fmt=self.fmt,
+            options["api_key"] = self.api_key
+        url = "{server_url}/channels/{id}{fmt}".format(
+            server_url=self.server_url, id=self.id, fmt=self.fmt
         )
         r = requests.get(url, params=options, timeout=self.timeout)
         return self._fmt(r)
@@ -116,20 +107,18 @@ class Channel(object):
         <https://mathworks.com/help/thingspeak/update-channel-feed.html>`_
         """
         if self.api_key is not None:
-            data['api_key'] = self.api_key
+            data["api_key"] = self.api_key
         else:
-            raise ValueError('Missing api_key')
-        url = '{server_url}/update{fmt}'.format(
-            server_url=self.server_url,
-            id=self.id,
-            fmt=self.fmt,
+            raise ValueError("Missing api_key")
+        url = "{server_url}/update{fmt}".format(
+            server_url=self.server_url, id=self.id, fmt=self.fmt
         )
         r = requests.post(url, params=data, timeout=self.timeout)
         return self._fmt(r)
 
     def _fmt(self, r):
         r.raise_for_status()
-        if self.fmt == 'json':
+        if self.fmt == "json":
             return r.json()
         else:
             return r.text
