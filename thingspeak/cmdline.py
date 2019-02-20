@@ -17,7 +17,6 @@ Arguments:
 Options:
    --api-key=<key>        Read API key for selected channel
                           (no key required for public channels)
-   --write-key=<wkey>     Write API key for selected channel
    -r=<r>, --results <r>  Number of results to output
    -f <format>            Output data format [default: json]
 
@@ -39,7 +38,7 @@ import json
 
 def main():
     """Run the code for thingspeak"""
-    args = docopt(__doc__, version=ts.__version__)
+    args = docopt(__doc__, version="1.0.0")
     args = parse_json_config(args)
     log_level = logging.INFO  # default
     if args["--verbose"]:
@@ -55,7 +54,6 @@ def main():
     ch = ts.Channel(
         args["<channel>"],
         api_key=args["--api-key"],
-        write_key=args["--write-key"],
         fmt=args["-f"],
     )
     opts = dict()

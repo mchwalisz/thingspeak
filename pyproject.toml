@@ -4,6 +4,10 @@ version = "1.0.0"
 description = "Client library for the thingspeak.com API"
 authors = ["Mikołaj Chwalisz <m.chwalisz@gmail.com>"]
 license = "LGPL-3.0"
+readme = "README.rst"
+
+[tool.poetry.scripts]
+thingspeak = 'thingspeak.cmdline:main'
 
 [tool.poetry.dependencies]
 python = "^3.4"
