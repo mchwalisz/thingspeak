@@ -51,11 +51,7 @@ def main():
     log = logging.getLogger("thingspeak.main")
     log.debug(args)
     # Create channel class
-    ch = ts.Channel(
-        args["<channel>"],
-        api_key=args["--api-key"],
-        fmt=args["-f"],
-    )
+    ch = ts.Channel(args["<channel>"], api_key=args["--api-key"], fmt=args["-f"])
     opts = dict()
     # Act on channel
     if args["<field>"]:

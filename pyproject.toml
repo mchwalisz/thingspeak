@@ -6,6 +6,9 @@ authors = ["Mikołaj Chwalisz <m.chwalisz@gmail.com>"]
 license = "LGPL-3.0"
 readme = "README.rst"
 
+documentation = "https://thingspeak.readthedocs.io/"
+include = ["examples/*", "CONTRIBUTORS"]
+
 [tool.poetry.scripts]
 thingspeak = 'thingspeak.cmdline:main'
 
