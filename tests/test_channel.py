@@ -1,6 +1,5 @@
 import sys
 import json
-import vcr
 import pytest
 import requests
 from thingspeak import Channel
@@ -25,14 +24,14 @@ def test_channel(channel_param, servers):
     assert ch.api_key is channel_param.api_key
 
 
-@vcr.use_cassette()
+@pytest.mark.vcr
 def test_get_with_key(channel_param):
     ch = Channel(id=channel_param.id, api_key=channel_param.api_key)
     result = json.loads(ch.get())
     assert type(result) == dict
 
 
-@vcr.use_cassette()
+@pytest.mark.vcr
 def test_get_without_key(channel_param):
     ch = Channel(id=channel_param.id)
     if channel_param.access == "private":
@@ -44,7 +43,7 @@ def test_get_without_key(channel_param):
         assert type(result) == dict
 
 
-@vcr.use_cassette()
+@pytest.mark.vcr
 def test_get_wrong_key(channel_param):
     if channel_param.access == "public":
         pytest.skip()
@@ -54,7 +53,7 @@ def test_get_wrong_key(channel_param):
     excinfo.match(r"400 .*")
 
 
-@vcr.use_cassette()
+@pytest.mark.vcr
 def test_update(channel_param):
     ch = Channel(id=channel_param.id, api_key=channel_param.api_key)
     if channel_param.write:

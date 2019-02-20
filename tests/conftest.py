@@ -8,6 +8,7 @@ logging.basicConfig()
 vcr_log = logging.getLogger("vcr")
 vcr_log.setLevel(logging.INFO)
 
+
 descr = namedtuple("ChannelParam", "id access api_key write")
 
 channels = [
@@ -47,18 +48,24 @@ def servers(request):
     yield request.param
 
 
-def replace_auth(key, value, request):
-    for ch_id, channel in zip(channels_ids, channels):
-        if channel.api_key == value:
-            return ch_id
-    else:
-        return value
+@pytest.fixture(scope="module", autouse=True)
+def vcr(vcr):
+    def replace_auth(key, value, request):
+        for ch_id, channel in zip(channels_ids, channels):
+            if channel.api_key == value:
+                return ch_id
+        else:
+            return value
+
+    vcr.filter_query_parameters = [("api_key", replace_auth)]
+    return vcr
 
 
-vcr.default_vcr = vcr.VCR(
-    record_mode="new_episodes" if os.environ.get("CI") == "true" else "none",
-    cassette_library_dir="tests/cassettes",
-    path_transformer=vcr.VCR.ensure_suffix(".yaml"),
-    filter_query_parameters=[("api_key", replace_auth)],
-)
-vcr.use_cassette = vcr.default_vcr.use_cassette
+@pytest.fixture
+def vcr_cassette_name(request):
+    """Name of the VCR cassette"""
+    f = request.function
+    name = request.node.name.split("[")[0]
+    if hasattr(f, "__self__"):
+        return f.__self__.__class__.__name__ + "." + name
+    return name
