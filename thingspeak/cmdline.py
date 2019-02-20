@@ -17,7 +17,6 @@ Arguments:
 Options:
    --api-key=<key>        Read API key for selected channel
                           (no key required for public channels)
-   --write-key=<wkey>     Write API key for selected channel
    -r=<r>, --results <r>  Number of results to output
    -f <format>            Output data format [default: json]
 
@@ -39,40 +38,36 @@ import json
 
 def main():
     """Run the code for thingspeak"""
-    args = docopt(__doc__, version=ts.__version__)
+    args = docopt(__doc__, version="1.0.0")
     args = parse_json_config(args)
     log_level = logging.INFO  # default
-    if args['--verbose']:
+    if args["--verbose"]:
         log_level = logging.DEBUG
-    elif args['--quiet']:
+    elif args["--quiet"]:
         log_level = logging.ERROR
     logging.basicConfig(
-        level=log_level,
-        format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+        level=log_level, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
     )
-    log = logging.getLogger('thingspeak.main')
+    log = logging.getLogger("thingspeak.main")
     log.debug(args)
     # Create channel class
-    ch = ts.Channel(
-        args['<channel>'],
-        api_key=args['--api-key'],
-        write_key=args['--write-key'],
-        fmt=args['-f'],
-    )
+    ch = ts.Channel(args["<channel>"], api_key=args["--api-key"], fmt=args["-f"])
     opts = dict()
     # Act on channel
-    if args['<field>']:
-        data = {k: v for k, v in zip(args['<field>'], args['<value>'])}
+    if args["<field>"]:
+        data = {k: v for k, v in zip(args["<field>"], args["<value>"])}
         print(ch.update(data))
-    if args['--results'] is not None:
-        opts['results'] = args['--results']
+    if args["--results"] is not None:
+        opts["results"] = args["--results"]
         results = ch.get(opts)
-        if args['-f'] == 'json':
+        if args["-f"] == "json":
             print(json.dumps(json.loads(results), sort_keys=True, indent=2))
         else:
             print(results)
     else:
         print(ch.view())
+
+
 # def main
 
 
@@ -83,14 +78,14 @@ def parse_json_config(args):
     It either prints the empty json config structure or adds the
     parameters from the given one to the existing arguments (args)
     """
-    if args['--config']:
-        del args['-c']
-        del args['-C']
-        del args['--config']
-        del args['--help']
-        del args['--quiet']
-        del args['--verbose']
-        del args['--version']
+    if args["--config"]:
+        del args["-c"]
+        del args["-C"]
+        del args["--config"]
+        del args["--help"]
+        del args["--quiet"]
+        del args["--verbose"]
+        del args["--version"]
         print(json.dumps(args, sort_keys=True, indent=4))
         exit()
 
@@ -100,12 +95,15 @@ def parse_json_config(args):
             (str(key), args.get(key) or json_config.get(key))
             for key in set(json_config) | set(args)
         )
-    if args['-c']:
-        return merge_configs(args, args['-c'])
-    elif args['-C']:
+
+    if args["-c"]:
+        return merge_configs(args, args["-c"])
+    elif args["-C"]:
         return merge_configs(args, "~/.config/thingspeak.json")
     else:
         return args
+
+
 # def parse_json_config
 
 
