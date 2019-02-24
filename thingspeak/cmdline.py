@@ -30,15 +30,16 @@ Other options:
    --version           show version and exit
 """
 
-import thingspeak as ts
-from docopt import docopt
+import pkg_resources
 import logging
 import json
+from docopt import docopt
+import thingspeak as ts
 
 
 def main():
     """Run the code for thingspeak"""
-    args = docopt(__doc__, version="1.0.0")
+    args = docopt(__doc__, version=pkg_resources.get_distribution("thingspeak").version)
     args = parse_json_config(args)
     log_level = logging.INFO  # default
     if args["--verbose"]:
