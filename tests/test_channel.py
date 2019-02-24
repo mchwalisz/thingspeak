@@ -1,57 +1,71 @@
-import pytest
-import thingspeak
-import responses
 import sys
+import json
+import pytest
+import requests
+from thingspeak import Channel
 
 
-@pytest.fixture
-def get_channel():
-    body = '''
-{
-  "channel": {
-    "created_at": "2010-12-14T01:20:06Z",
-    "description": "Netduino Plus connected to sensors around the house",
-    "field1": "Light",
-    "field2": "Outside Temperature",
-    "id": 9,
-    "last_entry_id": 11127690,
-    "latitude": "40.44",
-    "longitude": "-79.9965",
-    "name": "my_house",
-    "updated_at": "2016-11-10T23:03:02Z"
-  },
-  "feeds": [
-    {
-      "created_at": "2016-11-10T23:02:47Z",
-      "entry_id": 11127689,
-      "field1": "280",
-      "field2": "37.197452229299365"
-    },
-    {
-      "created_at": "2016-11-10T23:03:02Z",
-      "entry_id": 11127690,
-      "field1": "279",
-      "field2": "40.764331210191081"
-    }
-  ]
-}
-'''
-    responses.add(responses.GET,
-        'https://api.thingspeak.com//channels/9/feeds.json',
-        body=body, status=200, content_type='application/json')
-    return body
-
-
-@pytest.mark.xfail(sys.version_info < (3, 3),
-                   reason="python3.3 api changes")
+@pytest.mark.xfail(sys.version_info < (3, 3), reason="python3.3 api changes")
 def test_missing_id():
     with pytest.raises(TypeError) as excinfo:
-        thingspeak.Channel()
-    assert 'missing 1 required positional argument' in str(excinfo.value)
+        Channel()
+    assert "missing 1 required positional argument" in str(excinfo.value)
 
 
-@responses.activate
-def test_get(get_channel):
-    ch = thingspeak.Channel(9, fmt='json')
-    assert ch.get({'results': 2}) == get_channel
-    assert len(responses.calls) == 1
+def test_channel(channel_param, servers):
+    ch = Channel(channel_param.id, server_url=servers)
+    assert ch.id == channel_param.id
+    assert ch.api_key is None
+    if servers is None:
+        ch.server_url == "https://api.thingspeak.com"
+    else:
+        assert ch.server_url == servers
+    ch = Channel(channel_param.id, api_key=channel_param.api_key)
+    assert ch.api_key is channel_param.api_key
+
+
+@pytest.mark.vcr
+def test_get_with_key(channel_param):
+    ch = Channel(id=channel_param.id, api_key=channel_param.api_key)
+    result = json.loads(ch.get())
+    assert type(result) == dict
+
+
+@pytest.mark.vcr
+def test_get_without_key(channel_param):
+    ch = Channel(id=channel_param.id)
+    if channel_param.access == "private":
+        with pytest.raises(requests.exceptions.HTTPError) as excinfo:
+            ch.get()
+        excinfo.match(r"400 .*")
+    else:
+        result = json.loads(ch.get())
+        assert type(result) == dict
+
+
+@pytest.mark.vcr
+def test_get_wrong_key(channel_param):
+    if channel_param.access == "public":
+        pytest.skip()
+    ch = Channel(id=channel_param.id, api_key="wrong_key")
+    with pytest.raises(requests.exceptions.HTTPError) as excinfo:
+        ch.get()
+    excinfo.match(r"400 .*")
+
+
+@pytest.mark.vcr
+def test_update(channel_param):
+    ch = Channel(id=channel_param.id, api_key=channel_param.api_key)
+    if channel_param.write:
+        ch.update({"field1": 1})
+    else:
+        with pytest.raises(requests.exceptions.HTTPError) as excinfo:
+            ch.update({"field1": 1})
+        excinfo.match(r"400 .*")
+
+
+def test_update_no_key(channel_param):
+    ch = Channel(id=channel_param.id)
+    with pytest.raises(ValueError) as excinfo:
+        ch.update({"field1": 1})
+    excinfo.match("Missing api_key")

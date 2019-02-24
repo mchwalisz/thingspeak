@@ -1,8 +1,23 @@
 language: python
-python:
-  - "2.7"
-  - "3.4"
-  - "3.5"
-  - "3.6"
-install: pip install -e .
-script: python setup.py test
+matrix:
+  include:
+    - python: 3.4
+    - python: 3.5
+    - python: 3.6
+    - python: 3.7
+      dist: xenial
+      sudo: true
+
+cache:
+  pip: true
+  directories:
+    - $HOME/.cache/pypoetry
+
+install:
+  - pip install pip -U
+  - curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python
+  - source $HOME/.poetry/env
+  - poetry install -v
+  - poetry build -v
+
+script: poetry run pytest --vcr-record none

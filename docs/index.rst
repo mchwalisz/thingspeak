@@ -5,6 +5,17 @@ Python binding for ThingSpeak API
 
 This repository is contains Python module that helps in talking to ThingSpeak API.
 
+|saythanks| master: |masterbadge| develop: |developbadge|
+
+.. |masterbadge| image:: https://travis-ci.org/mchwalisz/thingspeak.svg?branch=master
+    :target: https://travis-ci.org/mchwalisz/thingspeak
+
+.. |developbadge| image:: https://travis-ci.org/mchwalisz/thingspeak.svg?branch=develop
+    :target: https://travis-ci.org/mchwalisz/thingspeak
+
+.. |saythanks| image:: https://img.shields.io/badge/SayThanks.io-%E2%98%BC-1EAEDB.svg
+    :target: https://saythanks.io/to/mchwalisz
+    :alt: Say thanks!
 
 .. rubric:: Contents
 
@@ -13,6 +24,7 @@ This repository is contains Python module that helps in talking to ThingSpeak AP
 
    install
    examples
+   changelog
    api
 
 .. warning::
