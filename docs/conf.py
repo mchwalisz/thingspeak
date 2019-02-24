@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import pkg_resources
 import thingspeak
 
 extensions = [
@@ -14,11 +15,11 @@ extensions = [
 project = "thingspeak"
 source_suffix = ".rst"
 master_doc = "index"
-copyright = "2016, Mikołaj Chwalisz"
+copyright = "2016-2019, Mikołaj Chwalisz"
 author = "Mikołaj Chwalisz"
 
-version = thingspeak.__version__
-release = thingspeak.__version__
+version = pkg_resources.get_distribution("thingspeak").version
+release = pkg_resources.get_distribution("thingspeak").version
 
 language = None
 

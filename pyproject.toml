@@ -6,6 +6,7 @@ authors = ["Mikołaj Chwalisz <m.chwalisz@gmail.com>"]
 license = "LGPL-3.0"
 readme = "README.rst"
 
+homepage = "https://thingspeak.readthedocs.io/"
 documentation = "https://thingspeak.readthedocs.io/"
 include = ["examples/*", "CONTRIBUTORS"]
 

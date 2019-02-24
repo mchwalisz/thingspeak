@@ -24,6 +24,7 @@ This repository is contains Python module that helps in talking to ThingSpeak AP
 
    install
    examples
+   changelog
    api
 
 .. warning::
