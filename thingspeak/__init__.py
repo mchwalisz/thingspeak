@@ -96,7 +96,7 @@ class Channel(object):
         <https://de.mathworks.com/help/thingspeak/view-a-channel.html>`_
         """
         options = dict()
-        if self.user_key is not None:
+        if self.user_api_key is not None:
             options["api_key"] = self.user_api_key
         url = "{server_url}/channels/{id}{fmt}".format(
             server_url=self.server_url, id=self.id, fmt=self.fmt
