@@ -109,7 +109,7 @@ class Channel(object):
         """View a Channel
 
         `view-a-channel
-        <https://de.mathworks.com/help/thingspeak/view-a-channel.html>`_
+        <https://mathworks.com/help/thingspeak/view-a-channel.html>`_
         """
         options = dict()
         if self.user_api_key is not None:
