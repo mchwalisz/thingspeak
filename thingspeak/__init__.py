@@ -40,6 +40,22 @@ class Channel(object):
         r = requests.get(url, params=options, timeout=self.timeout)
         return self._fmt(r)
 
+    def get_last(self, options=None):
+        """Get a last entry in channel feed.
+
+        `get-a-channel-feed
+        <https://mathworks.com/help/thingspeak/readlastentry.html>`_
+        """
+        if options is None:
+            options = dict()
+        if self.read_api_key is not None:
+            options["api_key"] = self.read_api_key
+        url = "{server_url}/channels/{id}/feeds/last{fmt}".format(
+            server_url=self.server_url, id=self.id, fmt=self.fmt
+        )
+        r = requests.get(url, params=options, timeout=self.timeout)
+        return self._fmt(r)
+
     def get_field(self, field=None, options=None):
         """Get particular field
 
