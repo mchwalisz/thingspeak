@@ -120,6 +120,28 @@ class Channel(object):
         r = requests.get(url, params=options, timeout=self.timeout)
         return self._fmt(r)
 
+    def get_api_keys(self):
+        """Get Read/Write API Keys a Channel
+
+        `control-a-channel
+        <https://se.mathworks.com/help/thingspeak/channel-control.html>`_
+        """
+        import json
+        v_json = self.view()
+        v = json.loads(v_json)
+        read_api_key = None
+        write_api_key = None
+        for k in v['api_keys']:
+            if k['write_flag']:
+                if write_api_key is None:
+                    write_api_key = k['api_key']
+            else:
+                if read_api_key is None:
+                    read_api_key = k['api_key']        
+        setattr(self,'read_api_key', read_api_key)
+        setattr(self,'write_api_key', write_api_key)
+        return read_api_key, write_api_key
+
     def update(self, data):
         """Update channel feed.
 
